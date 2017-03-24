@@ -43,7 +43,7 @@ public class LoginAction
                     return "fail";
                 }
             }
-            //	到这，说明登陆成功
+            //    到这，说明登陆成功
             session.put("admin", admin);
         } catch (DAOException e) {
             e.printStackTrace();

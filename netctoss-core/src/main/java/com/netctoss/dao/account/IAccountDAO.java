@@ -6,18 +6,19 @@ import com.netctoss.dao.DAOException;
 import com.netctoss.entity.Account;
 
 /**
- *	账务账号DAO
+ * 账务账号DAO
  */
 public interface IAccountDAO {
 
     /**
      * 根据条件查询账务账号
-     * @param idcardNo 身份证
-     * @param realName 姓名
+     *
+     * @param idcardNo  身份证
+     * @param realName  姓名
      * @param loginName 登陆名
-     * @param status 状态
-     * @param page 页码
-     * @param pageSize 页容量
+     * @param status    状态
+     * @param page      页码
+     * @param pageSize  页容量
      * @return
      * @throws DAOException
      */
@@ -31,11 +32,12 @@ public interface IAccountDAO {
 
     /**
      * 查询总页数
-     * @param idcardNo 身份证
-     * @param realName 姓名
+     *
+     * @param idcardNo  身份证
+     * @param realName  姓名
      * @param loginName 登陆名
-     * @param status 状态
-     * @param pageSize 页容量
+     * @param status    状态
+     * @param pageSize  页容量
      * @return
      * @throws DAOException
      */
@@ -48,9 +50,9 @@ public interface IAccountDAO {
             throws DAOException;
 
 
-
     /**
      * 根据身份证查询账务账号
+     *
      * @param idcardNo 身份证
      * @return
      * @throws DAOException
@@ -60,6 +62,7 @@ public interface IAccountDAO {
 
     /**
      * 根据ID查询账务账号
+     *
      * @param id
      * @return
      * @throws DAOException
@@ -69,6 +72,7 @@ public interface IAccountDAO {
 
     /**
      * 根据业务账号ID查询账务账号
+     *
      * @param serviceId
      * @return
      * @throws DAOException

@@ -14,10 +14,10 @@ public class Service implements java.io.Serializable {
     private String unixHost;
     //用于关联相关的Cost记录
     private Cost cost;
-    //	private Integer costId;
+    //    private Integer costId;
     //用于关联相关的Account记录
     private Account account;
-    //	private Integer accountId;
+    //    private Integer accountId;
     private String osUsername;
     private String loginPasswd;
     private String status;
@@ -32,12 +32,12 @@ public class Service implements java.io.Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-//	public Integer getCostId() {
-//		return costId;
-//	}
-//	public void setCostId(Integer costId) {
-//		this.costId = costId;
-//	}
+//    public Integer getCostId() {
+//        return costId;
+//    }
+//    public void setCostId(Integer costId) {
+//        this.costId = costId;
+//    }
 
 
     public String getUnixHost() {
@@ -56,12 +56,12 @@ public class Service implements java.io.Serializable {
         this.account = account;
     }
 
-    //	public Integer getAccountId() {
-//		return accountId;
-//	}
-//	public void setAccountId(Integer accountId) {
-//		this.accountId = accountId;
-//	}
+    //    public Integer getAccountId() {
+//        return accountId;
+//    }
+//    public void setAccountId(Integer accountId) {
+//        this.accountId = accountId;
+//    }
     public String getOsUsername() {
         return osUsername;
     }

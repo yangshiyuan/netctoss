@@ -7,7 +7,7 @@ import com.netctoss.dao.cost.ICostDAO;
 import com.netctoss.entity.Cost;
 
 public class StartCostAction {
-    //	输入参数：id
+    //    输入参数：id
     private int id;
 
 
@@ -30,9 +30,9 @@ public class StartCostAction {
 
     public String startCost() throws DAOException {
         Cost cost = costDAO.findById(id);
-//		0  开通
+//        0  开通
         cost.setStatus("0");
-//		开通的时间
+//        开通的时间
         cost.setStartTime(new Date(System.currentTimeMillis()));
         costDAO.updateCost(cost);
         return "success";

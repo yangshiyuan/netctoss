@@ -56,9 +56,9 @@ public class RoleLoadAction {
     public String findRole() throws DAOException {
         role = roleDAO.findById(id);
         privileges = PrivilegeReader.getPrivileges();
-//	显示当前要修改的角色的权限
-//  	role -----> set<RolePrivileger>---->id(联合主键).privilegeId
-//		   ----->PrivilegeReader.getPrivilegeNameById
+//    显示当前要修改的角色的权限
+//      role -----> set<RolePrivileger>---->id(联合主键).privilegeId
+//           ----->PrivilegeReader.getPrivilegeNameById
 
         return "success";
     }

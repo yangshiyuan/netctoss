@@ -8,10 +8,10 @@ import com.netctoss.entity.Account;
 import com.netctoss.entity.Service;
 
 public class PauseAccountAction {
-    //	输入id
+    // 输入id
     private int id;
 
-    //	输出ok
+    // 输出ok
     private boolean ok; //是否暂停成功
 
     private IAccountDAO accountDAO;
@@ -22,21 +22,21 @@ public class PauseAccountAction {
     }
 
     public String pauseAccount() {
-//	关闭Account账务账号，还要关闭Service业务
-//	账号
-//	JDBC：分别编写两条sql语句
-//	hibernate：使用级联
+//  关闭Account账务账号，还要关闭Service业务
+//  账号
+//  JDBC：分别编写两条sql语句
+//  hibernate：使用级联
         try {
             Account account = accountDAO.findById(id);
-//			修改account：
-//			statuts  “1”
+//          修改account：
+//          statuts  “1”
             account.setStatus("1");
-//			暂停时间
+//            暂停时间
             account.setPauseDate(new Date(System.currentTimeMillis()));
-//			利用关联关系找到该账务账号对应
-//			所有的业务账号
+//            利用关联关系找到该账务账号对应
+//            所有的业务账号
             for (Service service : account.getServices()) {
-//			使用级联
+//            使用级联
                 service.setStatus("1");
             }
             accountDAO.updateAccount(account);

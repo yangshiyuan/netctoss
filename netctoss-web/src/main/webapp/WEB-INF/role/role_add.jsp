@@ -75,7 +75,7 @@
       <div class="input_info_scroll">
         <ul>
           <s:iterator value="privileges" var="p">
-            <%--                        		<li><input type="checkbox" name="role.privileges.id" id="${p.id}" value="${p.id }" />${p.moduleName }</li>--%>
+            <%--                                <li><input type="checkbox" name="role.privileges.id" id="${p.id}" value="${p.id }" />${p.moduleName }</li>--%>
             <li><input type="checkbox" name="ids" id="${p.id}" value="${p.id }"/>${p.name }</li>
           </s:iterator>
         </ul>

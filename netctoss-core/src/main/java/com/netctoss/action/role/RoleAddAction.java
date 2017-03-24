@@ -10,7 +10,7 @@ import com.netctoss.entity.RolePrivilege;
 import com.netctoss.entity.RolePrivilegeId;
 
 public class RoleAddAction {
-    //	输入参数：
+    //    输入参数：
     private Role role;
     private String[] ids;
 
@@ -41,9 +41,9 @@ public class RoleAddAction {
     }
 
     public String saveRole() throws DAOException {
-//		找到当前保存的角色对应的权限
+//        找到当前保存的角色对应的权限
         Set<RolePrivilege> privileges = new HashSet<RolePrivilege>();
-//	ids--->Privilege的id--->RolePrivilegeId--->RolePrivilege
+//    ids--->Privilege的id--->RolePrivilegeId--->RolePrivilege
         for (String id : ids) {
             RolePrivilegeId rolePrivilegeId = new RolePrivilegeId();
             rolePrivilegeId.setPrivilegeId(Integer.parseInt(id));
@@ -53,7 +53,7 @@ public class RoleAddAction {
 
             privileges.add(rolePrivilege);
         }
-//		role.setName(name) ---从页面中role.name
+//        role.setName(name) ---从页面中role.name
         role.setPrivileges(privileges);
         roleDAO.saveRole(role);
         return "success";

@@ -5,9 +5,9 @@ import com.netctoss.dao.cost.ICostDAO;
 import com.netctoss.entity.Cost;
 
 public class ToUpdateCostAction {
-    //	输入的参数：id
+    //    输入的参数：id
     private int id;
-    //	输出的参数：cost
+    //    输出的参数：cost
     private Cost cost;
 
 

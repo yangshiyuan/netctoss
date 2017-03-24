@@ -5,13 +5,13 @@ import com.netctoss.dao.account.IAccountDAO;
 import com.netctoss.entity.Account;
 
 public class UpdateAccountAction {
-    //	输入的参数： account，新密码，旧密码，modiPwd
+    //    输入的参数： account，新密码，旧密码，modiPwd
     private Account account;
     private String modiPwd;//modiPwd是“1”的话，可以修改
     private String oldPassword;
     private String newPassword;
 
-    //	注入DAO
+    //    注入DAO
     private IAccountDAO accountDAO;
 
     public String getModiPwd() {
@@ -61,20 +61,20 @@ public class UpdateAccountAction {
 
     public String updateAccount() throws DAOException {
         try {
-//			1  根据id，查询要修改的Account对象
+//            1  根据id，查询要修改的Account对象
             Account oldAccount =
                     accountDAO.findById(account.getId());
 
             account.setLoginPasswd(oldAccount.getLoginPasswd());
-//			2  判断是否修改密码
+//            2  判断是否修改密码
             if ("1".equals(modiPwd)) {
-//				3  判断旧的密码是否正确
+//                3  判断旧的密码是否正确
                 if (oldAccount.getLoginPasswd().equals(oldPassword)) {
-//					4  修改密码（不要使用update）
+//                    4  修改密码（不要使用update）
                     account.setLoginPasswd(newPassword);
                 }
             }
-//			5  添加表单没有的字段
+//            5  添加表单没有的字段
             account.setRecommenderId(oldAccount.getRecommenderId());
             account.setCloseDate(oldAccount.getCloseDate());
             account.setCreateDate(oldAccount.getCreateDate());
@@ -82,7 +82,7 @@ public class UpdateAccountAction {
             account.setStatus(oldAccount.getStatus());
             account.setServices(oldAccount.getServices());
 
-//			6  updateAccount
+//            6  updateAccount
             accountDAO.updateAccount(account);
         } catch (Exception e) {
             e.printStackTrace();

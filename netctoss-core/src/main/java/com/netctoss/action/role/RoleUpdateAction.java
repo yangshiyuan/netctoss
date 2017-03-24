@@ -42,7 +42,7 @@ public class RoleUpdateAction {
 
 
     public String updateRole() throws DAOException {
-//		清空所有的角色
+//        清空所有的角色
         roleDAO.deleteByRoleId(role.getId());
         Role newRole = roleDAO.findById(role.getId());
         newRole.setName(role.getName());

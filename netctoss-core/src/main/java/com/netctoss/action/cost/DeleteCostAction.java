@@ -4,7 +4,7 @@ import com.netctoss.dao.DAOException;
 import com.netctoss.dao.cost.ICostDAO;
 
 public class DeleteCostAction {
-    //	输入参数id
+    //    输入参数id
     private int id;
 
     public int getId() {
@@ -15,7 +15,7 @@ public class DeleteCostAction {
         this.id = id;
     }
 
-    //	注入CostDao对象
+    //    注入CostDao对象
     private ICostDAO costDAO;
 
 

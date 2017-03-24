@@ -75,13 +75,13 @@ public class RoleDAOImpl implements IRoleDAO {
 
     @Override
     public void deleteRole(int id) {
-//		hibernateTemplate.delete(role);
+//        hibernateTemplate.delete(role);
 //使用hibernateTemplate.delete(对象):
-//	如果配置级联操作（all）：把当前表的数据
-//	和与之关联的数据，一起删除
+//    如果配置级联操作（all）：把当前表的数据
+//    和与之关联的数据，一起删除
 
         hibernateTemplate.bulkUpdate("delete from Role r where r.id = ? ", new Object[]{id});
-//	只使用hql语句，只把当前的表中的数据删除
+//    只使用hql语句，只把当前的表中的数据删除
     }
 
 

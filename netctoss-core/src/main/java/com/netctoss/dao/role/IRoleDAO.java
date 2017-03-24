@@ -20,7 +20,7 @@ public interface IRoleDAO {
                           int pageSize)
             throws DAOException;
 
-    //	查询总的页数
+    //    查询总的页数
     int findTotalPage(int pageSize);
 
     /**
@@ -48,7 +48,7 @@ public interface IRoleDAO {
      */
     void updateRole(Role role) throws DAOException;
 
-    //	删除角色
+    //    删除角色
     void deleteRole(int id);
 
     //删除角色的权限

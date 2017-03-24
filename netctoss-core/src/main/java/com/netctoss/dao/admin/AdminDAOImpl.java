@@ -23,12 +23,12 @@ public class AdminDAOImpl implements IAdminDAO {
         //查询管理员
         List<Object> params = new ArrayList<Object>();
         String sql = "select * from (" +
-                "	select a.*,rownum r from admin_info a " +
-                "	where id in ( " +
-                "		select admin_id from admin_role ar " +
-                "		inner join role_info ri on ri.id=ar.role_id " +
-                "		inner join role_privilege rp on rp.role_id=ri.id " +
-                "		where 1=1 ";
+                "    select a.*,rownum r from admin_info a " +
+                "    where id in ( " +
+                "        select admin_id from admin_role ar " +
+                "        inner join role_info ri on ri.id=ar.role_id " +
+                "        inner join role_privilege rp on rp.role_id=ri.id " +
+                "        where 1=1 ";
         if (roleId != null) {
             sql += " and ri.id=? ";
             params.add(roleId);
@@ -37,7 +37,7 @@ public class AdminDAOImpl implements IAdminDAO {
             sql += " and rp.privilege_id=? ";
             params.add(privilegeId);
         }
-        sql += "	) " +
+        sql += "    ) " +
                 ") where r<? and r>?";
         params.add(page * pageSize + 1);
         params.add((page - 1) * pageSize);
@@ -56,8 +56,8 @@ public class AdminDAOImpl implements IAdminDAO {
                 //查询管理员对应的角色
                 String sql2 = "select name from role_info " +
                         "where id in (" +
-                        "	select role_id from admin_role " +
-                        "	where admin_id=? )";
+                        "    select role_id from admin_role " +
+                        "    where admin_id=? )";
                 PreparedStatement ps2 =
                         con.prepareStatement(sql2);
                 ps2.setInt(1, vo.getId());
@@ -92,10 +92,10 @@ public class AdminDAOImpl implements IAdminDAO {
         List<Object> params = new ArrayList<Object>();
         String sql = "select count(*) from admin_info " +
                 "where id in (" +
-                "		select admin_id from admin_role ar " +
-                "		inner join role_info ri on ri.id=ar.role_id " +
-                "		inner join role_privilege rp on rp.role_id=ri.id " +
-                "		where 1=1 ";
+                "        select admin_id from admin_role ar " +
+                "        inner join role_info ri on ri.id=ar.role_id " +
+                "        inner join role_privilege rp on rp.role_id=ri.id " +
+                "        where 1=1 ";
         if (roleId != null) {
             sql += " and ri.id=? ";
             params.add(roleId);

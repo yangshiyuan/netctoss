@@ -6,7 +6,7 @@ import com.netctoss.entity.Privilege;
 import com.netctoss.util.PrivilegeReader;
 
 public class RoleIndexAction {
-//	在role_add.jsp中显示所有的权限
+//    在role_add.jsp中显示所有的权限
 
     List<Privilege> privileges;
 

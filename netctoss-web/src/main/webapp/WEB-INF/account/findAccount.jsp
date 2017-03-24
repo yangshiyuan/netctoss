@@ -28,7 +28,7 @@
           }
       );
       //        <action name="deleteAccount"  class="deleteAccountAction"  method="deleteAccount">
-      //  	    <result name="success" type="json"> <param name="root">ok</param>   </result>
+      //          <result name="success" type="json"> <param name="root">ok</param>   </result>
       //     </action>
       document.getElementById("operate_result_info").style.display = "block";
 

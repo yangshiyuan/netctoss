@@ -14,33 +14,29 @@ import com.netctoss.util.DBUtil;
 public class AccountDAOImpl implements IAccountDAO {
 
     public List<Account> findByCondition(
-            String idcardNo,
-            String realName,
-            String loginName,
-            String status,
-            int page, int pageSize)
+            String idcardNo, String realName, String loginName, String status, int page, int pageSize)
             throws DAOException {
         List<Account> list = new ArrayList<Account>();
         //拼SQL
         String sql = "select * from (" +
-                "	select a.*,rownum r from account a where 1=1 ";
+                "    select a.*,rownum r from account a where 1=1 ";
         List<Object> params = new ArrayList<Object>();
-        if(idcardNo != null
+        if (idcardNo != null
                 && idcardNo.length() > 0) {
             sql += "and idcard_no=? ";
             params.add(idcardNo);
         }
-        if(realName != null
+        if (realName != null
                 && realName.length() > 0) {
             sql += "and real_name=? ";
             params.add(realName);
         }
-        if(loginName != null
+        if (loginName != null
                 && loginName.length() > 0) {
             sql += "and login_name=? ";
             params.add(loginName);
         }
-        if(status != null
+        if (status != null
                 && status.length() > 0
                 && !status.equals("-1")) {
             sql += "and status=? ";
@@ -49,27 +45,27 @@ public class AccountDAOImpl implements IAccountDAO {
 
         sql += ") where r<? and r>? ";
         //小于下一页的最小行
-        params.add(page*pageSize+1);
+        params.add(page * pageSize + 1);
         //大于上一页的最大行
-        params.add((page-1)*pageSize);
+        params.add((page - 1) * pageSize);
 
         Connection con = DBUtil.getConnection();
         try {
             PreparedStatement ps =
                     con.prepareStatement(sql);
             //给参数赋值
-            for(int i=0;i<params.size();i++) {
-                ps.setObject(i+1, params.get(i));
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
             }
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 Account a = createAccount(rs);
                 list.add(a);
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(
-                    "查询账务账号失败！",e);
+                    "查询账务账号失败！", e);
         } finally {
             DBUtil.closeConnection();
         }
@@ -80,16 +76,16 @@ public class AccountDAOImpl implements IAccountDAO {
     private Account createAccount(ResultSet rs) throws SQLException {
         Account a = new Account();
         a.setId(rs.getInt("id"));
-		/*
-		 * rs.getInt("recommender_id")返回的是int类型
-		 * 的值，如果数据库中该字段为null，则会自动
-		 * 转换为0。那么如果这个0发送到修改页面放于
-		 *	hidden中的话，提交时将会以0来保存，由于该
-		 *	列设置了外键约束，会检查account表中是否
-		 * 存在保存的值，那么0显然没有存在，就导致
-		 * 保存出错
-		 * */
-        a.setRecommenderId(rs.getObject("recommender_id")==null?null:rs.getInt("recommender_id"));
+        /*
+         * rs.getInt("recommender_id")返回的是int类型
+         * 的值，如果数据库中该字段为null，则会自动
+         * 转换为0。那么如果这个0发送到修改页面放于
+         *    hidden中的话，提交时将会以0来保存，由于该
+         *    列设置了外键约束，会检查account表中是否
+         * 存在保存的值，那么0显然没有存在，就导致
+         * 保存出错
+         * */
+        a.setRecommenderId(rs.getObject("recommender_id") == null ? null : rs.getInt("recommender_id"));
         a.setLoginName(rs.getString("login_name"));
         a.setLoginPasswd(rs.getString("login_passwd"));
         a.setStatus(rs.getString("status"));
@@ -111,8 +107,7 @@ public class AccountDAOImpl implements IAccountDAO {
         return a;
     }
 
-    public static void main(String[] args)
-            throws Exception {
+    public static void main(String[] args) throws Exception {
         IAccountDAO dao = new AccountDAOImpl();
         Account a = dao.findByService(2001);
         System.out.println(a.getId());
@@ -121,30 +116,26 @@ public class AccountDAOImpl implements IAccountDAO {
     }
 
     public int findTotalPage(
-            String idcardNo,
-            String realName,
-            String loginName,
-            String status,
-            int pageSize) throws DAOException {
+            String idcardNo, String realName, String loginName, String status, int pageSize) throws DAOException {
         //查询总行数
         List<Object> params = new ArrayList<Object>();
         String sql = "select count(*) from account where 1=1 ";
-        if(idcardNo != null
+        if (idcardNo != null
                 && idcardNo.length() > 0) {
             sql += "and idcard_no=? ";
             params.add(idcardNo);
         }
-        if(realName != null
+        if (realName != null
                 && realName.length() > 0) {
             sql += "and real_name=? ";
             params.add(realName);
         }
-        if(loginName != null
+        if (loginName != null
                 && loginName.length() > 0) {
             sql += "and login_name=? ";
             params.add(loginName);
         }
-        if(status != null
+        if (status != null
                 && status.length() > 0
                 && !status.equals("-1")) {
             sql += "and status=? ";
@@ -155,23 +146,23 @@ public class AccountDAOImpl implements IAccountDAO {
         try {
             PreparedStatement ps =
                     con.prepareStatement(sql);
-            for(int i=0;i<params.size();i++) {
-                ps.setObject(i+1, params.get(i));
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
             }
             ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 int rows = rs.getInt(1);
                 //计算总页面
-                if(rows%pageSize == 0) {
-                    return rows/pageSize;
+                if (rows % pageSize == 0) {
+                    return rows / pageSize;
                 } else {
-                    return rows/pageSize + 1;
+                    return rows / pageSize + 1;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(
-                    "查询总页数失败！",e);
+                    "查询总页数失败！", e);
         } finally {
             DBUtil.closeConnection();
         }
@@ -198,15 +189,14 @@ public class AccountDAOImpl implements IAccountDAO {
                 e1.printStackTrace();
             }
             throw new DAOException(
-                    "开通账务账号失败！",e);
+                    "开通账务账号失败！", e);
         } finally {
             DBUtil.closeConnection();
         }
     }
 
-    public Account findByIdcardNo(String idcardNo)
-            throws DAOException {
-        if(idcardNo == null
+    public Account findByIdcardNo(String idcardNo) throws DAOException {
+        if (idcardNo == null
                 || idcardNo.length() == 0) {
             return null;
         }
@@ -219,14 +209,14 @@ public class AccountDAOImpl implements IAccountDAO {
                     con.prepareStatement(sql);
             ps.setString(1, idcardNo);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 Account a = createAccount(rs);
                 return a;
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(
-                    "根据身份证查询账务账号失败！",e);
+                    "根据身份证查询账务账号失败！", e);
         } finally {
             DBUtil.closeConnection();
         }
@@ -234,8 +224,7 @@ public class AccountDAOImpl implements IAccountDAO {
         return null;
     }
 
-    public Account findById(int id)
-            throws DAOException {
+    public Account findById(int id) throws DAOException {
         //查账务账号数据
         String sql = "select * from account where id=?";
         Connection con = DBUtil.getConnection();
@@ -244,17 +233,17 @@ public class AccountDAOImpl implements IAccountDAO {
                     con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 Account a = createAccount(rs);
                 //查询推荐人身份证
-                if(a.getRecommenderId() != null) {
+                if (a.getRecommenderId() != null) {
                     String sql2 = "select idcard_no from account " +
                             "where id=?";
                     PreparedStatement ps2 =
                             con.prepareStatement(sql2);
                     ps2.setInt(1, a.getRecommenderId());
                     ResultSet rs2 = ps2.executeQuery();
-                    if(rs2.next()) {
+                    if (rs2.next()) {
                         String idcardNo = rs2.getString(1);
                     }
                 }
@@ -263,7 +252,7 @@ public class AccountDAOImpl implements IAccountDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(
-                    "根据ID查询账务账号失败！",e);
+                    "根据ID查询账务账号失败！", e);
         } finally {
             DBUtil.closeConnection();
         }
@@ -281,14 +270,14 @@ public class AccountDAOImpl implements IAccountDAO {
                     con.prepareStatement(sql);
             ps.setInt(1, serviceId);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 Account a = createAccount(rs);
                 return a;
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(
-                    "根据业务账号查询账务账号失败！",e);
+                    "根据业务账号查询账务账号失败！", e);
         } finally {
             DBUtil.closeConnection();
         }

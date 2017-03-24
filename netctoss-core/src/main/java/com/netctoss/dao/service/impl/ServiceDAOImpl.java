@@ -67,10 +67,10 @@ public class ServiceDAOImpl implements IServiceDAO {
                         return query.list();
                     }
                 });
-//	查询List<Object[]>  ------> List<ServiceVO>
-//	每一个Object[]都会转化为ServiceVo的对象
-//	切记，顺序
-//		s.id,s.account.id,s.account.idcardNo,
+//    查询List<Object[]>  ------> List<ServiceVO>
+//    每一个Object[]都会转化为ServiceVo的对象
+//    切记，顺序
+//        s.id,s.account.id,s.account.idcardNo,
         //s.account.realName,s.osUsername,s.status,
         //s.unixHost, s.cost.name,s.cost.descr
         List<ServiceVO> serviceVos = new ArrayList<ServiceVO>();

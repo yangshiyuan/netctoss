@@ -5,9 +5,9 @@ import com.netctoss.dao.cost.ICostDAO;
 import com.netctoss.entity.Cost;
 
 public class UpdateCostAction {
-    //	输入参数：Cost
+    //    输入参数：Cost
     private Cost cost;
-//	依赖CostDAO
+//    依赖CostDAO
 
     private ICostDAO costDAO;
 
@@ -28,12 +28,12 @@ public class UpdateCostAction {
 
 
     public String updateCost() throws DAOException {
-//		添加：状态，开通的时间，创建时间
-//		获得要修改的Cost对象的id
+//        添加：状态，开通的时间，创建时间
+//        获得要修改的Cost对象的id
         int id = cost.getId();
         Cost cost1 = costDAO.findById(id);
-//		把未添加的状态，开通时间，创建时间添加
-//		cost对象中
+//        把未添加的状态，开通时间，创建时间添加
+//        cost对象中
         cost.setStatus(cost1.getStatus());
         cost.setStartTime(cost1.getStartTime());
         cost.setCreateTime(cost1.getCreateTime());

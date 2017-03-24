@@ -9,11 +9,11 @@ import com.netctoss.entity.Cost;
 import com.netctoss.entity.Service;
 
 public class ServiceLoadAction {
-    //	输入的参数： id
+    //    输入的参数： id
     private int id;
-    //	输出到service_modi.jsp中的service的信息
+    //    输出到service_modi.jsp中的service的信息
     private Service service;
-    //	所有的资费的信息
+    //    所有的资费的信息
     private List<Cost> costs;
 
     public int getId() {

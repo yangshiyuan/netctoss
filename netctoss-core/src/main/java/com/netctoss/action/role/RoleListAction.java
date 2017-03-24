@@ -10,7 +10,7 @@ public class RoleListAction {
     private int page = 1;
     private int pageSize = 3;
 
-    //	在role_list.jsp输出的参数：totalPage  ， roles
+    //    在role_list.jsp输出的参数：totalPage  ， roles
     private int totalPage;
     private List<Role> roles;
 

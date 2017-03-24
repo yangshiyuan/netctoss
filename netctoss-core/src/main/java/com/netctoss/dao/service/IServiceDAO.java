@@ -28,7 +28,7 @@ public interface IServiceDAO {
             int page, int pageSize)
             throws DAOException;
 
-    //	查询总的页数
+    //    查询总的页数
     int findTotalPage(String osUserName,
                       String unixHost,
                       String idcardNo,

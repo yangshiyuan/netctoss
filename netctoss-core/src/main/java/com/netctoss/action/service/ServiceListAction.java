@@ -7,7 +7,7 @@ import com.netctoss.dao.service.IServiceDAO;
 import com.netctoss.vo.ServiceVO;
 
 public class ServiceListAction {
-    //	输入的参数：
+    //    输入的参数：
     private String osUsername;
     private String unixHost;
     private String idcardNo;
@@ -17,8 +17,8 @@ public class ServiceListAction {
     private int pageSize = 3;
 
 
-    //	输出的信息；
-//	分页：serviceVos，totalPage
+    //    输出的信息；
+//    分页：serviceVos，totalPage
     private List<ServiceVO> serviceVos;
     private int totalPage;
 
@@ -102,7 +102,7 @@ public class ServiceListAction {
         this.totalPage = totalPage;
     }
 
-    //	注入serviceDAO
+    //    注入serviceDAO
     private IServiceDAO serviceDAO;
 
     public void setServiceDAO(IServiceDAO serviceDAO) {

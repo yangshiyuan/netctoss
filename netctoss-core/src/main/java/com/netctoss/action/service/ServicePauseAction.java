@@ -7,7 +7,7 @@ import com.netctoss.dao.service.IServiceDAO;
 import com.netctoss.entity.Service;
 
 public class ServicePauseAction {
-    //	输入的参数：id
+    //    输入的参数：id
     private int id;
 
 

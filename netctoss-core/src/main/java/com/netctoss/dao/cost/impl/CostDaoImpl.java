@@ -36,7 +36,7 @@ public class CostDaoImpl implements ICostDAO {
     @Override
     public Cost findById(final int id) throws DAOException {
 
-//		return (Cost) hibernateTemplate.get(Cost.class, id);
+//        return (Cost) hibernateTemplate.get(Cost.class, id);
         return (Cost) hibernateTemplate.execute(new HibernateCallback() {
             @Override
             public Object doInHibernate(Session session) throws HibernateException,
@@ -52,8 +52,8 @@ public class CostDaoImpl implements ICostDAO {
 
     @Override
     public List<Cost> findByPage(final int page, final int pageSize) throws DAOException {
-//	分页：使用回调，调用session，使用hibernate的
-//	专有分页
+//    分页：使用回调，调用session，使用hibernate的
+//    专有分页
         return (List<Cost>) hibernateTemplate.execute(new HibernateCallback() {
             @Override
             public Object doInHibernate(Session session) throws HibernateException,

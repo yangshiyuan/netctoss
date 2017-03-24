@@ -7,19 +7,19 @@ import com.netctoss.dao.account.IAccountDAO;
 import com.netctoss.entity.Account;
 
 public class FindAccountAction {
-    //	输入的参数：
+    // 输入的参数：
     private String idcardNo;
     private String realName;
     private String loginName;
     private String status;
 
-    //分页：pageSize，page
+    // 分页：pageSize，page
     private int page = 1;
     private int pageSize = 3;
-    //跳转到findAccount.jsp要显示信息：
-//	当前分页的信息：
+    // 跳转到findAccount.jsp要显示信息：
+    // 当前分页的信息：
     private List<Account> accounts;
-    //	总页数：
+    // 总页数：
     private int totalPage;
 
 
@@ -103,7 +103,7 @@ public class FindAccountAction {
     }
 
 
-    //	注入accountDAO
+    // 注入accountDAO
     private IAccountDAO accountDAO;
 
     public void setAccountDAO(IAccountDAO accountDAO) {

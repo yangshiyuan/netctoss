@@ -20,7 +20,7 @@ public class RoleDAOImpl implements IRoleDAO {
             throws DAOException {
         //先查询角色
         String sql = "select * from (" +
-                "	select i.*,rownum r from role_info i " +
+                "    select i.*,rownum r from role_info i " +
                 ") where r<? and r>? ";
         Connection con = DBUtil.getConnection();
         List<Role> list = new ArrayList<Role>();
@@ -34,7 +34,7 @@ public class RoleDAOImpl implements IRoleDAO {
                 RoleVO vo = new RoleVO();
                 vo.setId(rs.getInt("id"));
                 vo.setName(rs.getString("name"));
-                //	再查询角色对应的权限(即一组模块)
+                //    再查询角色对应的权限(即一组模块)
                 String sql2 = "select privilege_id " +
                         "from role_privilege where role_id=?";
                 PreparedStatement ps2 =

@@ -63,6 +63,6 @@ public interface ICostDAO {
     void updateCost(Cost cost)
             throws DAOException;
 
-    //	查询所有的cost的信息
+    //    查询所有的cost的信息
     List<Cost> findAll() throws DAOException;
 }

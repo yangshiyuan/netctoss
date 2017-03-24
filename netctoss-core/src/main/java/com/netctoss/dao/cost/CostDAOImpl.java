@@ -61,7 +61,7 @@ public class CostDAOImpl implements ICostDAO {
         c.setUnitCost(0.7);
         c.setDescr("7元套餐");
         c.setCostType("3");
-        //	dao.update(c);
+        //    dao.update(c);
     }
 
     public List<Cost> findByPage(

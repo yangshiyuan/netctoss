@@ -5,7 +5,7 @@ import com.netctoss.dao.cost.ICostDAO;
 import com.netctoss.entity.Cost;
 
 public class CloseCostAction {
-    //	输入参数
+    //    输入参数
     private int id;
 
 
@@ -26,7 +26,7 @@ public class CloseCostAction {
 
     public String closeCost() throws DAOException {
         Cost cost = costDAO.findById(id);
-//		status : 1,                开启的时间设为null
+//        status : 1,                开启的时间设为null
         cost.setStatus("1");
         cost.setStartTime(null);
         costDAO.updateCost(cost);

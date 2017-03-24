@@ -6,7 +6,7 @@ import com.netctoss.entity.Service;
 
 public class ServiceDetailAction {
     private int id;
-    //	在service_detail.jsp中显示service对象的信息
+    //    在service_detail.jsp中显示service对象的信息
     private Service service;
 
 
