@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+
+  <!-- 角色模块 -->
+  <package name="role" namespace="/role"
+           extends="netctoss">
+    <!-- 查询角色，分页 -->
+    <action name="roleList"
+            class="roleList"
+            method="findRoles"
+    >
+      <result name="success">
+        /WEB-INF/role/role_list.jsp
+      </result>
+    </action>
+    <!-- 删除角色 -->
+    <action name="role_del"
+            class="deleteRole"
+            method="deleteRole"
+    >
+      <result name="success"
+              type="redirectAction"
+      >
+        roleList
+      </result>
+    </action>
+    <!-- 跳转到添加角色的页面：role_add.jsp -->
+    <action name="role_index"
+            class="indexRole"
+            method="findPrivileger"
+    >
+      <result name="success">
+        /WEB-INF/role/role_add.jsp
+      </result>
+    </action>
+    <action name="role_add"
+            class="saveRole"
+            method="saveRole"
+    >
+      <result name="success"
+              type="redirectAction">
+        roleList
+      </result>
+    </action>
+    <action name="role_load"
+            class="loadRole"
+            method="findRole"
+    >
+      <result name="success">
+        /WEB-INF/role/role_modi.jsp
+      </result>
+    </action>
+    <action name="role_modi"
+            class="updateRole"
+            method="updateRole"
+    >
+      <result name="success"
+              type="redirectAction">
+        roleList
+      </result>
+    </action>
+  </package>
+
+</struts>

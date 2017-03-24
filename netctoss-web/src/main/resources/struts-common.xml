@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+
+  <!--
+    定义一个公共的package，用于封装公共的配置，
+    方便我们业务模块对应的package去继承，从而
+    可以复用这些配置。
+  -->
+  <package name="netctoss"
+           extends="json-default">
+    <interceptors>
+      <!-- 注册拦截器 -->
+      <interceptor name="loginInter"
+                   class="com.netctoss.interceptor.LoginInterceptor"/>
+      <!-- 注册拦截器栈 -->
+      <interceptor-stack name="loginStack">
+        <!-- 包含自定义拦截器 -->
+        <interceptor-ref name="loginInter"/>
+        <!-- 包含默认拦截器栈，对默认拦截器栈
+        进行引用，相当于是引用了它里面包含的
+        所有拦截器 -->
+        <interceptor-ref name="defaultStack"/>
+      </interceptor-stack>
+    </interceptors>
+
+    <!--
+      设置默认的拦截器引用，Struts2默认引用
+      的拦截器是defaultStack，这里我们将其
+      修改为自己定义的拦截器
+    -->
+    <!--
+      <default-interceptor-ref name="loginStack"/>
+    -->
+    <!-- 定义全局Result，里面包含的Result，可以
+    被当前包下所有的Action直接访问，而不需要
+    在Action下进行定义 -->
+    <global-results>
+      <result name="login" type="redirectAction">
+        <param name="namespace">
+          /login
+        </param>
+        <param name="actionName">
+          toLogin
+        </param>
+      </result>
+    </global-results>
+  </package>
+
+</struts>

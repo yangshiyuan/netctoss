@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+
+  <!-- 业务账号模块 -->
+  <package name="service" namespace="/service"
+           extends="netctoss">
+    <!-- 查询service分页 -->
+    <action name="serviceList"
+            class="serviceList"
+            method="findServices"
+    >
+      <result name="success">
+        /WEB-INF/service/service_list.jsp
+      </result>
+    </action>
+    <!-- 暂停业务账号service -->
+    <action name="service_pause"
+            class="servicePause"
+            method="pauseService"
+    >
+      <result name="success"
+              type="redirectAction">
+        serviceList
+      </result>
+    </action>
+    <!-- 开通service业务账号 -->
+    <action name="service_start"
+            class="serviceStart"
+            method="startService"
+    >
+      <result name="success" type="json">
+        <param name="root">ok</param>
+      </result>
+    </action>
+    <!-- 删除service -->
+    <action name="service_del"
+            class="serviceDelete"
+            method="deleteService"
+    >
+      <result name="success"
+              type="redirectAction">
+        serviceList
+      </result>
+    </action>
+    <!-- 查询当前service的详细信息 -->
+    <action name="service_detail"
+            class="serviceDetail"
+            method="findService"
+    >
+      <result name="success">
+        /WEB-INF/service/service_detail.jsp
+      </result>
+    </action>
+    <!-- 跳转到service_modi.jsp -->
+    <action name="service_load"
+            class="serviceLoad"
+            method="findService"
+    >
+      <result name="success">
+        /WEB-INF/service/service_modi.jsp
+      </result>
+    </action>
+    <!-- 跳转到 addService.jsp-->
+    <action name="toAddService"
+            class="toAddService"
+            method="findToAdd"
+    >
+      <result name="success">
+        /WEB-INF/service/addService.jsp
+      </result>
+    </action>
+
+
+  </package>
+
+</struts>

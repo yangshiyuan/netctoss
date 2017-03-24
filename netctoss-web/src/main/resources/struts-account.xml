@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+
+  <!-- 账务账号模块 -->
+  <package name="account" namespace="/account"
+           extends="netctoss">
+    <!-- 查询Account 分页-->
+    <action name="findAccount"
+            class="findAccount"
+            method="findAcounts"
+    >
+      <result name="success">
+        /WEB-INF/account/findAccount.jsp
+      </result>
+    </action>
+    <!-- 开启账务账号 -->
+    <action name="startAccount"
+            class="startAccount"
+            method="startAccount"
+    >
+      <result name="success" type="json">
+        <param name="root">ok</param>
+      </result>
+    </action>
+    <!-- 暂停账务账号 -->
+    <action name="pauseAccount"
+            class="pauseAccount"
+            method="pauseAccount"
+    >
+      <result name="success" type="json">
+        <param name="root">ok</param>
+      </result>
+    </action>
+    <!-- 删除账务账号 -->
+    <action name="deleteAccount"
+            class="closeAccount"
+            method="deleteAccount"
+    >
+      <result name="success" type="json">
+        <param name="root">ok</param>
+      </result>
+    </action>
+    <!-- 跳转到修改Account对象页面account_modi.jsp
+    显示要修改的account对象，还要显示
+    推荐该account对象的推荐的人的身份证号码
+   -->
+    <action name="account_modi"
+            class="showAccount"
+            method="findAcount"
+    >
+      <result name="success">
+        /WEB-INF/account/account_modi.jsp
+      </result>
+    </action>
+    <!-- 修改Account对象 -->
+    <action name="account_update"
+            class="updateAccount"
+            method="updateAccount"
+    >
+      <result name="success">
+        /WEB-INF/account/account_modi.jsp
+      </result>
+    </action>
+    <!-- 显示Account对象的详细信息 -->
+    <action name="showAccount"
+            class="showAccount"
+            method="findAcount"
+    >
+      <result name="success">
+        /WEB-INF/account/account_detail.jsp
+      </result>
+    </action>
+    <!-- 跳转到addAccount.jsp页面 -->
+    <action name="addAccount">
+      <result name="success">
+        /WEB-INF/account/addAccount.jsp
+      </result>
+    </action>
+
+  </package>
+
+</struts>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+
+  <!-- 资费模块 -->
+  <package name="cost" namespace="/cost"
+           extends="netctoss">
+    <!-- 查询所有的Cost
+spring整合sturts2以后，Action的创建和管理
+都交给了spring来处理，
+struts2中的Action的class的值：spring中对应
+class的id值 -->
+    <action name="findCost"
+            class="findCosts"
+            method="findCosts"
+    >
+      <result name="success">
+        /WEB-INF/cost/findCost.jsp
+      </result>
+    </action>
+    <!-- 删除cost -->
+    <action name="deleteCost"
+            class="deleteCost"
+            method="deleteCost"
+    >
+      <result name="success"
+              type="redirectAction">
+        findCost
+      </result>
+    </action>
+    <!-- 启用资费  -->
+    <action name="startCost"
+            class="startCost"
+            method="startCost"
+    >
+      <result name="success"
+              type="redirectAction">
+        findCost
+      </result>
+    </action>
+    <!-- 暂停Cost -->
+    <action name="closeCost"
+            class="closeCost"
+            method="closeCost"
+    >
+      <result name="success"
+              type="redirectAction">
+        findCost
+      </result>
+    </action>
+    <!-- 跳转到添加资费的页面：addCost.jsp -->
+    <action name="toAddCost"
+    >
+      <result name="success">
+        /WEB-INF/cost/addCost.jsp
+      </result>
+    </action>
+    <!-- 保存新的资费Cost -->
+    <action name="addCost"
+            class="saveCost"
+            method="addCost"
+    >
+      <result name="success"
+              type="redirectAction">
+        findCost
+      </result>
+    </action>
+    <!-- 跳转到修改的页面，而且要把修改的cost
+    在该页面中显示 -->
+    <action name="toUpdateCost"
+            class="toUpdateCost"
+            method="findCostID"
+    >
+      <result name="success">
+        /WEB-INF/cost/updateCost.jsp
+      </result>
+    </action>
+    <!-- 修改Cost -->
+    <action name="updateCost"
+            class="updateCost"
+            method="updateCost"
+    >
+      <result name="success"
+              type="redirectAction">
+        findCost
+      </result>
+    </action>
+
+  </package>
+
+</struts>

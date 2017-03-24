@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+
+  <!-- 管理员模块 -->
+  <package name="admin" namespace="/admin"
+           extends="netctoss">
+    <!--
+      查询Action：
+        这里我就不写完整了，只跳转到静态页面演示.
+        完整的内容需要同学自行完成.
+    -->
+    <action name="findAdmin">
+      <result name="success">
+        /WEB-INF/admin/findAdmin.jsp
+      </result>
+    </action>
+    <!-- 密码重置Action -->
+    <action name="resetPassword"
+            class="com.netctoss.action.admin.ResetPwdAction">
+      <result name="success" type="json">
+        <param name="root">info</param>
+      </result>
+    </action>
+  </package>
+
+</struts>

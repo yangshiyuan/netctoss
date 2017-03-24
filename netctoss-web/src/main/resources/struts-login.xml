@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+
+  <!-- 登陆模块 -->
+  <package name="login" namespace="/login"
+           extends="struts-default">
+    <!--
+      找登陆页面的Action，
+      class可以省略，当省略时，Struts2会自动
+      调用ActionSupport的execute，该方法返回
+      success.
+     -->
+    <action name="toLogin">
+      <result name="success">
+        /WEB-INF/main/login.jsp
+      </result>
+    </action>
+    <!-- 登陆Action -->
+    <action name="login"
+            class="com.netctoss.action.login.LoginAction">
+      <result name="success">
+        /WEB-INF/main/index.jsp
+      </result>
+      <result name="fail">
+        /WEB-INF/main/login.jsp
+      </result>
+      <result name="error">
+        /WEB-INF/main/error.jsp
+      </result>
+    </action>
+    <!-- 生成验证码的Action -->
+    <action name="createImage"
+            class="com.netctoss.action.login.CreateImageAction">
+      <result name="success" type="stream">
+        <param name="inputName">
+          imageStream
+        </param>
+      </result>
+    </action>
+  </package>
+
+</struts>

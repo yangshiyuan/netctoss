@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - Application context definition for JPetStore's business layer.
+  - Contains bean references to the transaction manager and to the DAOs in
+  - dataAccessContext-local/jta.xml (see web.xml's "contextConfigLocation").
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+  <!-- spring 整合hibernate -->
+  <!-- 配置连接池 -->
+  <bean id="dataSource"
+        class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="url" value="jdbc:oracle:thin:@192.168.56.101:1521:orcl"></property>
+    <property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+    <property name="username" value="netctoss"></property>
+    <property name="password" value="netctoss"></property>
+
+    <property name="initialSize" value="2"></property>
+    <property name="maxActive" value="12"></property>
+    <property name="maxWait" value="5000"></property>
+  </bean>
+  <!-- 创建SessionFactory对象 -->
+  <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"></property>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">org.hibernate.dialect.Oracle9Dialect</prop>
+        <prop key="hibernate.show_sql">true</prop>
+      </props>
+    </property>
+    <property name="mappingResources">
+      <list>
+        <value>com/netctoss/entity/Cost.hbm.xml</value>
+        <value>com/netctoss/entity/Account.hbm.xml</value>
+        <value>com/netctoss/entity/Service.hbm.xml</value>
+        <value>com/netctoss/entity/RolePrivilege.hbm.xml</value>
+        <value>com/netctoss/entity/Role.hbm.xml</value>
+      </list>
+    </property>
+  </bean>
+  <!-- 创建事务管理器 -->
+  <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>
+  <!-- 配置事务特性 -->
+  <tx:advice id="txAdvice"
+             transaction-manager="transactionManager">
+    <tx:attributes>
+      <tx:method name="find*"
+                 propagation="NOT_SUPPORTED"
+                 isolation="READ_COMMITTED"
+                 read-only="true"
+      />
+      <tx:method name="*"
+                 propagation="REQUIRED"
+                 isolation="READ_COMMITTED"
+      />
+    </tx:attributes>
+  </tx:advice>
+  <!-- 对应关系
+  目前项目：Action ， Dao。事务要配置到Action层.
+  Dao：单一一次对数据库的操作
+  通过Action对Dao一次或者多次操作
+  -->
+  <aop:config>
+    <!-- execution(* 外层包的名字..*.*(..)) -->
+    <aop:pointcut
+        expression="execution(* com.netctoss.action..*.*(..))"
+        id="myPoint"/>
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="myPoint"/>
+  </aop:config>
+
+
+  <!-- Dao -->
+  <bean id="costDao" class="com.netctoss.dao.cost.impl.CostDaoImpl">
+    <property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>
+  <!-- 资费模块 -->
+  <!-- Action -->
+  <bean id="findCosts" class="com.netctoss.action.cost.FindCostAction" scope="prototype">
+    <property name="costDAO" ref="costDao"></property>
+  </bean>
+  <!-- 删除资费 -->
+  <bean id="deleteCost" class="com.netctoss.action.cost.DeleteCostAction" scope="prototype">
+    <property name="costDAO" ref="costDao"></property>
+  </bean>
+  <!-- 启动资费 -->
+  <bean id="startCost" class="com.netctoss.action.cost.StartCostAction" scope="prototype">
+    <property name="costDAO" ref="costDao"></property>
+  </bean>
+  <!-- 暂停资费 -->
+  <bean id="closeCost" class="com.netctoss.action.cost.CloseCostAction" scope="prototype">
+    <property name="costDAO" ref="costDao"></property>
+  </bean>
+  <!-- 保存资费 -->
+  <bean id="saveCost" class="com.netctoss.action.cost.AddCostAction" scope="prototype">
+    <property name="costDAO" ref="costDao"></property>
+  </bean>
+  <!-- 查找Cost对象 -->
+  <bean id="toUpdateCost" class="com.netctoss.action.cost.ToUpdateCostAction" scope="prototype">
+    <property name="costDAO" ref="costDao"></property>
+  </bean>
+  <!-- 修改Cost对象 -->
+  <bean id="updateCost" class="com.netctoss.action.cost.UpdateCostAction" scope="prototype">
+    <property name="costDAO" ref="costDao"></property>
+  </bean>
+
+  <!-- Account模块 -->
+  <bean id="accountDAO" class="com.netctoss.dao.account.impl.AccountDaoImpl">
+    <property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>
+  <!-- 查询Account对象 -->
+  <bean id="findAccount" class="com.netctoss.action.account.FindAccountAction">
+    <property name="accountDAO" ref="accountDAO"></property>
+  </bean>
+  <!-- 启用Account -->
+  <bean id="startAccount" class="com.netctoss.action.account.StartAccountAction">
+    <property name="accountDAO" ref="accountDAO"></property>
+  </bean>
+  <!--  暂停Account账务账号-->
+  <bean id="pauseAccount" class="com.netctoss.action.account.PauseAccountAction">
+    <property name="accountDAO" ref="accountDAO"></property>
+  </bean>
+  <!-- 删除Account账务账号 -->
+  <bean id="closeAccount" class="com.netctoss.action.account.DeleteAccountAction">
+    <property name="accountDAO" ref="accountDAO"></property>
+  </bean>
+  <!-- 查找Account对象的信息 -->
+  <bean id="showAccount" class="com.netctoss.action.account.ShowAccountAction">
+    <property name="accountDAO" ref="accountDAO"></property>
+  </bean>
+  <!-- 修改Account对象 -->
+  <bean id="updateAccount" class="com.netctoss.action.account.UpdateAccountAction">
+    <property name="accountDAO" ref="accountDAO"></property>
+  </bean>
+  <!-- 业务账号Service模块 -->
+  <bean id="serviceDAO" class="com.netctoss.dao.service.impl.ServiceDAOImpl">
+    <property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>
+  <!-- 查询所有的service对象分页 -->
+  <bean id="serviceList" class="com.netctoss.action.service.ServiceListAction">
+    <property name="serviceDAO" ref="serviceDAO"></property>
+  </bean>
+  <!-- 暂停service业务账号 -->
+  <bean id="servicePause" class="com.netctoss.action.service.ServicePauseAction">
+    <property name="serviceDAO" ref="serviceDAO"></property>
+  </bean>
+  <!-- 开通service业务账号 -->
+  <bean id="serviceStart" class="com.netctoss.action.service.ServiceStartAction">
+    <property name="serviceDAO" ref="serviceDAO"></property>
+  </bean>
+  <!-- 删除service业务账号 -->
+  <bean id="serviceDelete" class="com.netctoss.action.service.ServiceDelAction">
+    <property name="serviceDAO" ref="serviceDAO"></property>
+  </bean>
+  <!-- 显示service的详细信息 -->
+  <bean id="serviceDetail" class="com.netctoss.action.service.ServiceDetailAction">
+    <property name="serviceDAO" ref="serviceDAO"></property>
+  </bean>
+  <!-- 跳转到修改service的位置-->
+  <bean id="serviceLoad" class="com.netctoss.action.service.ServiceLoadAction">
+    <property name="serviceDAO" ref="serviceDAO"></property>
+    <property name="costDAO" ref="costDao"></property>
+  </bean>
+  <!-- 跳转到添加service的位置 -->
+  <bean id="toAddService" class="com.netctoss.action.service.ServiceToAddAction">
+    <property name="costDAO" ref="costDao"></property>
+  </bean>
+
+  <!-- 角色管理模块 -->
+  <bean id="roleDAO" class="com.netctoss.dao.role.impl.RoleDAOImpl">
+    <property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>
+  <!-- 查询所有的角色 -->
+  <bean id="roleList" class="com.netctoss.action.role.RoleListAction">
+    <property name="roleDAO" ref="roleDAO"></property>
+  </bean>
+  <!-- 删除角色 -->
+  <bean id="deleteRole" class="com.netctoss.action.role.RoleDeleteAction">
+    <property name="roleDAO" ref="roleDAO"></property>
+  </bean>
+  <!-- 跳转到添加角色的页面，要显示所有的权限 -->
+  <bean id="indexRole" class="com.netctoss.action.role.RoleIndexAction"></bean>
+  <!-- 保存角色 -->
+  <bean id="saveRole" class="com.netctoss.action.role.RoleAddAction">
+    <property name="roleDAO" ref="roleDAO"></property>
+  </bean>
+  <!-- 跳转到修改角色的页面，显示要修改角色的信息 -->
+  <bean id="loadRole" class="com.netctoss.action.role.RoleLoadAction">
+    <property name="roleDAO" ref="roleDAO"></property>
+  </bean>
+  <!-- 修改角色 -->
+  <bean id="updateRole" class="com.netctoss.action.role.RoleUpdateAction">
+    <property name="roleDAO" ref="roleDAO"></property>
+  </bean>
+</beans>
